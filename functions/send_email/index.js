@@ -43,7 +43,7 @@ module.exports = async (event, context) => {
       .table(AppConstants.CatalystComponents.Table.CertificateMapper)
 
     for (let i = count; i < csvfileContents.length; i++) {
-      if (remainingTime > 200000) { // Run loop till 14th minute as event function can run upto 15 minutes. After 14th minute, we will trigger next event for further processing.
+      if (remainingTime > 840000) { // Run loop till 14th minute as event function can run upto 15 minutes. After 14th minute, we will trigger next event for further processing.
         const rowData = csvfileContents[i]
         let ROW_ID = ''
         await CertificateMapperTable.insertRow({

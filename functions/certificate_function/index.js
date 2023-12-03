@@ -9,6 +9,7 @@ const catalyst = require('zcatalyst-sdk-node')
 const path = require('path')
 const os = require('os')
 const QRCode = require('qrcode')
+const puppeteer = require('puppeteer-core')
 const { AuthService } = require('./services')
 const { AppError, ErrorHandler } = require('./utils')
 const AppConstants = require('./constants')
@@ -136,7 +137,6 @@ app.get('/certificate', async (req, res) => {
 
 app.post('/preview', upload.single('htmlFile'), async (req, res) => {
   try {
-    const catalystApp = catalyst.initialize(req)
     if (!req.file || Object.keys(req.file).length === 0) {
       throw new AppError(400, 'No file has been uploaded. Please upload the html file for preview.')
     }
@@ -171,20 +171,16 @@ app.post('/preview', upload.single('htmlFile'), async (req, res) => {
         qrCodeData
       )
     }
-    let pdfdata = ''
-    await catalystApp.smartbrowz().convertToPdf(htmlfileContents,
-      {
-        pdf_options: {},
-        page_options: {}
-      }).then((data) => {
-      pdfdata = data
-    }).catch((err) => {
-      throw err
+    const browser = await puppeteer.connect({
+      browserWSEndpoint: process.env[AppConstants.Env.CDP_END_POINT]
     })
+    const page = await browser.newPage()
+    await page.setContent(htmlfileContents, { waitUntil: 'domcontentloaded' })
+    const pdfBuffer = await page.pdf({ format: 'A4' })
     res.setHeader('Content-disposition', 'inline; filename="' + 'Certificate' + '.pdf' + '"')
     res.setHeader('Content-type', 'application/pdf')
-    res.status(200)
-    pdfdata.pipe(writestream)
+    res.send(pdfBuffer)
+    await browser.close()
   } catch (error) {
     const { statusCode, ...others } = ErrorHandler.getInstance().processError(error)
     res.status(statusCode).send(others)
