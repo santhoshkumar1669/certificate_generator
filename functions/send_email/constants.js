@@ -1,10 +1,10 @@
 class AppConstants {
   static Headers = {
-    CodelibSecretKey: 'catalyst-codelib-secret-key'
+    SecretKey: 'secret-key'
   }
 
   static Env = {
-    CodelibSecretKey: 'CODELIB_SECRET_KEY'
+    SecretKey: 'SECRET_KEY'
   }
 
   static CatalystComponents = {
@@ -18,7 +18,7 @@ class AppConstants {
       CertificateMapper: 'CertificateMapper'
     },
     Email: {
-      FromEmail: 'santhoshkumar.js@zohocorp.com'
+      FromEmail: 'xxx@abc.com'
     }
   }
 }

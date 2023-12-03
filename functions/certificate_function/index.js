@@ -18,7 +18,7 @@ app.use((req, res, next) => {
   try {
     if (
       !AuthService.getInstance().isValidRequest(
-        req.get(AppConstants.Headers.CodelibSecretKey)
+        req.get(AppConstants.Headers.SecretKey)
       )
     ) {
       throw new AppError(

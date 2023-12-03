@@ -74,7 +74,7 @@ module.exports = async (event, context) => {
           contentType: 'text/plain'
         })
         const headers = form.getHeaders()
-        headers[AppConstants.Headers.CodelibSecretKey] = process.env[AppConstants.Env.CodelibSecretKey]
+        headers[AppConstants.Headers.SecretKey] = process.env[AppConstants.Env.SecretKey]
 
         const response = await axios.post(qrcodeGenURL, form,
           {
