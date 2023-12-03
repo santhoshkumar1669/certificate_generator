@@ -1,0 +1,15 @@
+{
+	"deployment": {
+		"name": "certificate_function",
+		"stack": "node16",
+		"type": "advancedio",
+		"env_variables": {
+			"CODELIB_SECRET_KEY" : "hello",
+			"CDP_END_POINT": "wss://browser360.catalystserverless.app/__catalyst/headless-chrome?projectId=13137000000258001&api-key=a8343686aca56fb8f86bc53e2a23c161172e4430576abcd29316824799f39d3b"
+		} 
+		
+	},
+	"execution": {
+		"main": "index.js"
+	}
+}

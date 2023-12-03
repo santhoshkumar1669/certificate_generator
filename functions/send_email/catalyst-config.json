@@ -1,0 +1,13 @@
+{
+	"deployment": {
+		"name": "send_email",
+		"stack": "node16",
+		"type": "event",
+		"env_variables": {
+			"CODELIB_SECRET_KEY" : "hello"
+		}
+	},
+	"execution": {
+		"main": "index.js"
+	}
+}

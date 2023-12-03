@@ -1,0 +1,14 @@
+# Ignore node_modules directory
+**/node_modules/
+
+# NPM Lockfiles
+**/package-lock.json
+
+#Build directory
+.build
+.vscode
+
+#Catalyst project specific files
+catalyst.json
+.catalystrc
+**/.eslintrc.json
